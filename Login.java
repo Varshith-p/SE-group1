@@ -3,6 +3,15 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Login
 {
+    /**
+     * 
+     * @param email
+     * @param password
+     * @return an integer value 1 if both email and password entered are correct
+     * @return an integer value 0 if the email is not registered
+     * @return an integer value -1 if the password is incorrect
+     * @throws FileNotFoundException
+     */
     public static int authenticate(String email, String password) throws FileNotFoundException{
         int count =0;
         int index1=0;

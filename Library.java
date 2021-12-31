@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Library {
     public void run() throws Exception {
         System.out.println("Enter a choice:");
-        System.out.println("1.login\n2.Register");
+        System.out.println("1.Login\n2.Register");
         try (Scanner scan = new Scanner(System.in)) {
             int choice = Integer.parseInt(scan.nextLine());
             switch(choice){
@@ -13,9 +13,13 @@ public class Library {
                     email = scan.nextLine();
                     
                     while(!(Validation.validateEmail(email))){
-                        System.out.println("Enter a valid email(use college mail id)");
+                        System.out.println("Enter a valid email");
                         System.out.println("Enter emailID:");
                         email=scan.nextLine();
+                    }
+                    while(!email.endsWith("@vvit.net")){
+                        System.out.println("Enter college emailID");
+                        email = scan.nextLine();
                     }
                     
                     System.out.println("Enter Password:");
@@ -25,7 +29,7 @@ public class Library {
                         System.out.println("Login SuccessFull");
                     }
                     else if(res == 0){
-                        System.out.println("user is not registered.");
+                        System.out.println("User is not registered.");
                     }
                     else{
                         System.out.print("incorrect password");
@@ -69,10 +73,11 @@ public class Library {
                     String rpassword = scan.nextLine();
                     if(!(Register.isRegistered(emailid))){
                         Register.registerUser(name, rollNumber, branch, emailid, year,rpassword);
-                        System.out.println("user registeration completed");
+                        System.out.println("User registeration completed");
+                        System.out.println("User can login into his account ");
                     }
                     else{
-                        System.out.println("user already registerd");
+                        System.out.println("User already registerd");
                     }
                     break;
                     
