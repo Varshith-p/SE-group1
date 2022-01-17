@@ -1,9 +1,0 @@
-test case  :
-    filename : BookTransactionData.csv
-    method name : isIssued
-    input : the name of the book to be updated to the books issued data and the email of the user
-    Output : bookname is added to the file corresponding to the email of the user 
-    Test Status : Pass
-    
-Note : The BookTransactionData.csv file needs to be checked whehter the bookname is being added to the books issued to the 
-       corresponding user or not 
