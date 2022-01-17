@@ -1,0 +1,14 @@
+Test case 1 :
+    file name : BookTransactionData.csv
+    input : bookname  that has been issued to the user and email of the user
+    Expected Output : Book has been issued
+    Test Status : pass
+
+Test case 2:
+    file name : BookTransactionData.csv
+    input : bookname that is not issued to the user and email of the user 
+    Expected Output : Book has not been issued
+    Test Status : pass
+
+note : email of the user is passed as parameter for testing purpose the email should not be passed to the method
+       instead it is instance variable is used
