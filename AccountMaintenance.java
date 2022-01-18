@@ -91,4 +91,43 @@ public class AccountMaintenance {
         }
     }
    
+
+
+    /**
+     * 
+     * @param bookname the name of the book returned by the user is passed as parameter
+     * @throws IOException
+     * This method updates the BookTransactionData file . The name of the book returned by the
+     * user is passed as parameter.  The book returned by  the user is stored corresponding to the 
+     * mail of the user along with the Date of return.
+     */
+    public  void updateReturnedBooks(String bookname) throws IOException{
+        LocalDate dobj = LocalDate.now();
+        FileInputStream file = new FileInputStream("BookTransactionData.csv");
+        try (Scanner scan = new Scanner(file)) {
+            scan.useDelimiter("\n");
+            String temp ="";
+            while(scan.hasNext()){
+                String text = scan.next();
+                if(!text.equals("")){
+                    String[] data = text.split(",");
+                    if(data[0].equals(this.email) && data.length == 2){
+                        temp = temp +data[0]+","+data[1]+","+bookname+"  "+dobj+";"+"\n";
+                    }
+                    else if(data[0].equals(this.email) && data.length >= 3){
+                        temp = temp +data[0]+","+data[1]+","+data[2]+bookname +"  "+dobj+ ";"+"\n";
+                    }
+                    else if(!data[0].equals(this.email)){
+                        temp = temp + text+"\n";
+                    }
+
+                }
+            }
+            FileOutputStream fos = new FileOutputStream("BookTransactionData.csv");
+            byte[] array = temp.getBytes();
+            fos.write(array);
+            fos.close();
+        }
+    }
+
 }
