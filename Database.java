@@ -13,6 +13,8 @@ public class Database {
      * @param email Email of the user
      * @param password password of the user of his email
      * @return integer value 1 : if both the email and password are correct
+     *         integer Value -1 : if the password is incorrect
+     *         interger value 0: if the user is not registered
      * @throws FileNotFoundException
      * This method throws FileNotFoundException if the file containing the emails and password is not available
      * 
