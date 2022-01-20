@@ -41,4 +41,28 @@ public class Database {
         return 0;
         
     }
+    /**
+     * 
+     * @param email email of the user 
+     * @return boolean true : if the user is registered with the email 
+     *         boolean false : if the user is not registered
+     * @throws FileNotFoundException
+     * This method throws Exception if the file is not avaialble 
+     * File name : Data.csv
+     */
+   public  boolean isRegistered(String email) throws FileNotFoundException {
+        File file = new File("Data.csv");
+        try (Scanner scan = new Scanner(file)) {
+            Encryption eobj = new Encryption();
+            scan.useDelimiter("\n");
+            while(scan.hasNext())
+            {
+                String[] data = scan.next().split(",");
+                if(eobj.decryptText(data[0]).equals(email)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
