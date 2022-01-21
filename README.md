@@ -1,2 +1,1 @@
-Library Management System(libsoft)
-Use case : Login/Register
+Library Information  Management System (LIMS)
