@@ -127,3 +127,54 @@ public class Search {
     }
 }
 
+
+
+
+public  void reserveBook(String bookname) throws Exception {
+        File file = new File("Booklist.csv");
+        Scanner scan = new Scanner(file);
+        int searchResult = 0;
+        scan.useDelimiter("\n");
+        while(scan.hasNext()){
+            String temp = scan.next();
+            if(!temp.equals("")){
+                String[] details = temp.split(",");
+                int count = Integer.parseInt(details[4]);//.trim());
+                if(details[0].equalsIgnoreCase(bookname) && count > 0){
+                    searchResult =1;
+                    break;
+                }
+            } 
+        }
+        scan.close();
+        if(searchResult ==1){
+            Scanner sc=new Scanner(new File("Booklist.csv"));
+            String w="";
+            sc.useDelimiter("\n");
+            while(sc.hasNext()){
+                String temp=sc.next().trim();
+                if(!temp.equals("")){
+                    String array[]=temp.split(",");
+                    if(array[0].equalsIgnoreCase(bookname)){
+                        int count=Integer.parseInt(array[4].trim());
+                        count=count-1;
+                        w=w+array[0]+","+array[1]+","+array[2]+","+array[3]+","+count+"\n";
+                        //BookDatabase.updateIssuedBooks(bookname,LibraryCaseStudy.mail);
+                        System.out.println("book reserved successfully");
+                    }
+                    else{
+                        w=w+temp+"\n";
+                    }
+                }
+                
+            }
+            FileOutputStream f=new FileOutputStream("booklist.csv");
+            byte b[]=w.getBytes();
+            f.write(b);
+            f.close();
+        }
+        else{
+            System.out.println("Book is not available currently");
+        }
+    }
+
