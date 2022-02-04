@@ -1,14 +1,20 @@
 
 import java.util.regex.Pattern;
-
+/**
+ * @author : SEGROUP-1
+ * @version : 1.0
+ * Validation
+ *  This class contains the methods to validate the entered details. 
+ * Email, username , branch, year of study are validated as per the given conditions
+ */
 public class Validation{
     /**
-     * 
-     * @param name 
-     * @return boolean true if the user name is valid 
-     * returns false if the user name is invalid
+     * validates the given username .
+     * @param name username
+     * @return boolean true if the username is valid
+     *         boolean false if the username is invalid
      */
-    public static boolean validateUserName(String name){
+    public  boolean validateUserName(String name){
         name = name.toLowerCase();
         String[] nameArray = name.split(" ");
         String newName ="";
@@ -25,12 +31,12 @@ public class Validation{
         return true;       
     }
     /**
-     * 
-     * @param year
-     * @return boolean true if year is in between 1 and 4(1,4 are inclusive) 
-     * returns false if it is beyond range
+     * validates year of study 
+     * @param year year of study
+     * @return boolean true if the year is valid (in between 1-4)
+     *         boolean false if the year is not valid
      */
-    public static boolean validateYear(int year) {
+    public  boolean validateYear(int year) {
 
         if(year>= 1 && year <=4){
             return true;
@@ -39,12 +45,12 @@ public class Validation{
 
     }
     /**
-     * 
-     * @param email
-     * @return boolean true if the email is having a valid syntax
-     * returns false if it is having invalid syntax
+     * validates the email entered by the user
+     * @param email email of the user
+     * @return boolean true if the email is valid (follows proper syntax)
+     *         boolean false if the email is not valid
      */
-    public static boolean validateEmail(String email)
+    public  boolean validateEmail(String email)
     {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
                             "[a-zA-Z0-9_+&*-]+)*@" +
@@ -57,12 +63,12 @@ public class Validation{
         return pat.matcher(email).matches();
     }
     /**
-     * 
-     * @param branch
-     * @return boolean true if the branch entered by the user is valid
-     * returns false if it is invalid
+     * validates the branch entered by the user.
+     * @param branch the branch in which the student is studying
+     * @return boolean true if the branch is a valid branch
+     *         boolean false if the branch is not valid
      */
-    public static boolean branchValidation(String branch) {
+    public  boolean branchValidation(String branch) {
         int count =0;
         String[] branches = new String[] {"CSE","EEE","MECH","CIVIL","IT","ECE","CSM","CIC","CSO"};
         for(int i=0;i<branches.length;i++) {
