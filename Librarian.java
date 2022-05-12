@@ -1,25 +1,27 @@
-package SeProject;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.awt.*;
 
-/**<h1>Librarian<h1>
+/**
+ * Librarian
  * @author : SE GROUP-1
  * @version : 2.0
- * <p>This class contains the methods that can be accessed by the Admin only(Librarian). 
+ *This class contains the methods that can be accessed by the Admin only(Librarian). 
  * Methods in this class are : run, displayStudentDetails, displayBooksData , addBook.
  * These methods are purely accessed only by admin login. 
  * These methods are used to get details of the books available and details of a praticular student and books issued to the student.
- * Librarian can add a new book to the Inventory by entering the details of the book and the copies of the book available.<p>
+ * Librarian can add a new book to the Inventory by entering the details of the book and the copies of the book available.
  */
 public class Librarian {
     /**
      * This method is used to take input from the Librarian based on the Menu displayed to him / her.
      * Based on the input respective action/method is called. 
-     * @throws Exception
+     * @throws Exception if the relavent Files are not available.
      */
     public static void run() throws Exception{
         Menus menuObj = new Menus();
@@ -36,7 +38,7 @@ public class Librarian {
                 choice = Integer.parseInt(scan.nextLine());
                 switch(choice){
                     case 1 :
-                        File file = new File("C:\\JAVAPROGRAMS\\SeAdminCode\\Files\\detailsFile.csv");
+                        File file = new File("C:\\SEGROUPPROJECT\\SeAdminCode\\Files\\detailsFile.csv");
                         Desktop sc= Desktop.getDesktop();
                         if (file.exists())
                             sc.open(file);
@@ -74,11 +76,11 @@ public class Librarian {
                 menuObj.displayAdminMenu();
                 break;
             case 6:
-                System.out.println("The recommended Books");
+                
                 libObj.displayRecommendedBooks();
                 menuObj.displayAdminMenu();
             case 7:
-                File file = new File("C:\\JAVAPROGRAMS\\SeAdminCode\\Files\\FeedBack.txt");
+                File file = new File("C:\\SEGROUPPROJECT\\SeAdminCode\\Files\\FeedBack.txt");
                 Desktop obj = Desktop.getDesktop();
                 if(file.exists()){
                     obj.open(file);
@@ -105,7 +107,7 @@ public class Librarian {
     public void displayStudentDetails(String studentName) throws FileNotFoundException{
         System.out.println("\033[H\033[2J");
         System.out.flush();
-        File file = new File("C:\\JAVAPROGRAMS\\SeAdminCode\\Files\\detailsFile.csv");
+        File file = new File("C:\\SEGROUPPROJECT\\SeAdminCode\\Files\\detailsFile.csv");
         Scanner scan = new Scanner(file); 
         scan.useDelimiter("\n");
         boolean found= false;
@@ -113,10 +115,10 @@ public class Librarian {
             String data = scan.next();
             if(!data.equals("")){
                 String[] details = data.split(",");
-                if(details[0].equals(studentName)){
+                if(details[0].equalsIgnoreCase(studentName)){
                     found = true;
                     System.out.println("\n");
-                    System.out.println("Student Name        :"  +studentName);
+                    System.out.println("Student Name        :"  +details[0]);
                     System.out.println("Registered Number   :"  +details[1]);
                     System.out.println("Branch              :"  +details[2]);
                     System.out.println("Year of Study       :"  +details[3]);
@@ -139,7 +141,7 @@ public class Librarian {
     public void displayBooksData() throws IOException{
         System.out.println("\033[H\033[2J");
         System.out.flush();
-        File file = new File("C:\\JAVAPROGRAMS\\SeAdminCode\\Files\\booklist.csv");
+        File file = new File("C:\\SEGROUPPROJECT\\SeAdminCode\\Files\\booklist.csv");
         Desktop obj  = Desktop.getDesktop();
         if(file.exists()){
             obj.open(file);
@@ -149,7 +151,7 @@ public class Librarian {
         }
         /*System.out.println("\033[H\033[2J");
         System.out.flush();
-        File bookFile = new File("C:\\JAVAPROGRAMS\\SeAdminCode\\Files\\booklist.csv");
+        File bookFile = new File("C:\\SEGROUPPROJECT\\SeAdminCode\\Files\\booklist.csv");
         Scanner scan = new Scanner(bookFile);
         scan.useDelimiter("\n");
         System.out.println("\n");
@@ -174,48 +176,64 @@ public class Librarian {
      */
     public void addBook() throws FileNotFoundException , IOException{
         try{
-        System.out.println("\033[H\033[2J");
-        System.out.flush();
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the BookName :");
-        String bookName = scan.nextLine();
-        System.out.println("Enter Author name :");
-        String authorName = scan.nextLine();
-        System.out.println("Enter ISBN Number :");
-        String IsbnNumber = scan.nextLine();
-        System.out.println("Enter Publisher Name :");
-        String publisherName = scan.nextLine();
-        System.out.println("Enter available copies :");
-        int copies = Integer.parseInt(scan.nextLine());
-        String data ="\n"+bookName + "," +authorName +"," + IsbnNumber +","+publisherName+","+copies;
-        byte[] b = data.getBytes();
-        FileOutputStream fileout = new FileOutputStream("C:\\JAVAPROGRAMS\\SeAdminCode\\Files\\booklist.csv",true);
-        fileout.write(b);
-        fileout.close();
+            System.out.println("\033[H\033[2J");
+            System.out.flush();
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Enter the BookName :");
+            String bookName = scan.nextLine();
+            System.out.println("Enter Author name :");
+            String authorName = scan.nextLine();
+            System.out.println("Enter ISBN Number :");
+            String IsbnNumber = scan.nextLine();
+            System.out.println("Enter Publisher Name :");
+            String publisherName = scan.nextLine();
+            System.out.println("Enter available copies :");
+            int copies = Integer.parseInt(scan.nextLine());
+            String data ="\n"+bookName + "," +authorName +"," + IsbnNumber +","+publisherName+","+copies;
+            byte[] b = data.getBytes();
+            FileOutputStream fileout = new FileOutputStream("C:\\SEGROUPPROJECT\\SeAdminCode\\Files\\booklist.csv",true);
+            fileout.write(b);
+            fileout.close();
         }
         catch(Exception e){
             System.out.println("File is currently being used by another resource please close it");
         }
     }
-
-    public void displayRecommendedBooks() throws FileNotFoundException{
-        File file = new File("C:\\JAVAPROGRAMS\\SeAdminCode\\Files\\RecommendedBooks.csv");
-        Scanner scan = new Scanner(file);
-        String text = "";
-        while(scan.hasNext()){
-            text = text + scan.next()+"\n";
+    /**
+     * This method is used to display the books recommended by the users.
+     * this can be only accessed by Admin.
+     * @throws FileNotFoundException if the file recommendedBooks.csv is not available.
+     */
+    public void displayRecommendedBooks() throws IOException{
+        File file = new File("C:\\SEGROUPPROJECT\\SeAdminCode\\Files\\RecommendedBooks.csv")
+        if(file.length()==0)
+        {
+            System.out.println("No recommended books");
         }
-        String[] data = text.split("\n");
-        for(int  i =data.length -1; i>=0;i--){
-            if(!data[i].isEmpty()){
-                String[] details = data[i].split(",");
-                System.out.println("Email            :"  +details[0]);
-                System.out.println("BookName         :"  +details[1]);
-                System.out.println("AuthorName       :"  +details[2]);
-                System.out.println("ISBN number      :"  +details[3]);
-                System.out.println("Publisher Name   :"  +details[4]);
-                System.out.println("Date             :"  +details[5]);
-                System.out.println("---------------------------");
+        else{
+            System.out.println("The recommended Books are : ");
+            StringBuilder str = new StringBuilder("");
+            FileReader fr = new FileReader("C:\\SEGROUPPROJECT\\SeAdminCode\\Files\\RecommendedBooks.csv");
+            BufferedReader br = new BufferedReader(fr);
+            while(br.ready()){
+                str.append(br.readLine()+"\n");
+            }
+            String data = new String(str);
+            String[] line = data.split("\n");
+            int i= line.length-1;
+            while(i>=0)
+            {
+                if(!line[i].isEmpty()){
+                    String[] details = line[i].split(",");
+                    System.out.println("Email            :"  +details[0]);
+                    System.out.println("BookName         :"  +details[1]);
+                    System.out.println("AuthorName       :"  +details[2]);
+                    System.out.println("ISBN number      :"  +details[3]);
+                    System.out.println("Publisher Name   :"  +details[4]);
+                    System.out.println("Date             :"  +details[5]);
+                    System.out.println("---------------------------");
+                }
+                i--;
             }
         }
     }
